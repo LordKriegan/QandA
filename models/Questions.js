@@ -1,8 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
     var Question = sequelize.define("Question", {
-        email: {
+        question: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        answer: {
+            type: DataTypes.STRING
         },
         answered: {
             type: DataTypes.BOOLEAN,
