@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Q&A</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="/assets/js/questionForm.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Q&A</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/question.html">Question Lookup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/questions.html">Questions List</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container padMe">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="bg-primary text-light text-center jumbotron">
+                    <h1>Questions & Answers</h1>
+                    <h6>done anonymously...</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="bg-primary text-light card-header">
+                        Ask a Question
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="userName">User Name (optional):</label>
+                                <input type="text" class="form-control" id="userName" aria-describedby="username"
+                                    placeholder="Anonymous">
+                                <small id="username" class="form-text text-muted">You don't have to say who you are! ;)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="questionBox">Question: </label>
+                                <textarea class="form-control" id="questionBox" rows="3" placeholder="Enter your question here."></textarea>
+                            </div>
+                            <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed-bottom">
+            <div id="myAlert" class="alert alert-danger collapse">
+                <a id="myAlertClose" href="#" class="close">&times;</a>
+                <strong>Error: </strong>There was an error with your form
+            </div>
+        </div>
+        <div class="fixed-bottom">
+            <div id="alertSuccess" class="alert alert-success collapse">
+                <a id="alertSuccessClose" href="#" class="close">&times;</a>
+                <strong>Success: </strong>Your question's ID number is <span id="showID"></span>. Save it for future
+                use.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

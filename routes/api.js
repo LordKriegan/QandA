@@ -1,7 +1,6 @@
 const db = require("../models");
 const express = require("express");
 const router = express.Router();
-const Sequelize = require('sequelize');
 
 //create
 router.post("/question", (req, res) => {
@@ -15,7 +14,7 @@ router.post("/question", (req, res) => {
             console.log(response);
             res.status(200).json({
                 msg: "Successfully wrote to database!",
-                response: response
+                data: response
             });
         })
         .catch((err) => {
@@ -96,7 +95,7 @@ router.put("/question/:id", (req, res) => {
                         console.log(response);
                         res.status(200).json({
                             msg: "Successfully wrote to database!",
-                            response: response
+                            data: response
                         });
                     })
                     .catch((err) => {
@@ -137,7 +136,7 @@ router.delete("/question/:id", (req, res) => {
                         console.log(response)
                         res.status(200).json({
                             message: "Successfully deleted post from database!",
-                            response: response
+                            data: response
                         });
                     })
                     .catch((err) => {

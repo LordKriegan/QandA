@@ -1,0 +1,10 @@
+body {
+	color: #777777;
+	background-image: url("../images/background.png");
+}
+.hideMe {
+    display: none;
+}
+.padMe {
+    padding-top: 25px;
+}

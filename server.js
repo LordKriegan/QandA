@@ -25,6 +25,10 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //routes
 app.use("/api", require("./routes/api.js"));
+app.use(express.static(path.join(__dirname, "client")));
+app.get("*", function (req, res) {
+    res.redirect("/404");
+});
 
 db.sequelize.sync({ force: isDev }).then(function () {
     app.listen(PORT, function () {
