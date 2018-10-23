@@ -1,4 +1,4 @@
-window.onload = () => {
+$(document).ready(() => {
     $("#submitBtn").on("click", (e) => {
         e.preventDefault();
         const question = $("#questionBox").val();
@@ -35,4 +35,4 @@ window.onload = () => {
     $("#alertSuccessClose").on("click", () => {
         $("#alertSuccess").hide("slow");
     });
-};
+});

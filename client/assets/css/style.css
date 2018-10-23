@@ -2,8 +2,11 @@ body {
 	color: #777777;
 	background-image: url("../images/background.png");
 }
-.hideMe {
-    display: none;
+.hiddenRow {
+    padding-top: 10px;
+}
+.textBox {
+    font-size: 25px;
 }
 .padMe {
     padding-top: 25px;
