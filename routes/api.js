@@ -1,7 +1,8 @@
 const db = require("../models");
 const express = require("express");
 const router = express.Router();
-
+const { WebClient } = require('@slack/client');
+const web = new WebClient(process.env.SLACK_ACCESS_TOKEN);
 /*==============================SEQUELIZE ROUTES================================*/
 //create
 router.post("/question", (req, res) => {
@@ -13,10 +14,25 @@ router.post("/question", (req, res) => {
         .create(newQuestion)
         .then((response) => {
             console.log(response);
-            res.status(200).json({
-                msg: "Successfully wrote to database!",
-                data: response
-            });
+            let text = "New question posted to the AskAnon App!\n";
+            text += "Asker: " + response.dataValues.asker + "\n";
+            text += "Question: " + response.dataValues.question;
+            web.chat
+                .postMessage({ channel: "#04-ask-the-class", text: text })
+                .then((resp) => {
+                    // `res` contains information about the posted message
+                    console.log('Message sent: ', resp.ts);
+                    res.status(200).json({
+                        msg: "Successfully wrote to database!",
+                        data: response
+                    });
+                }).catch((err) => {
+                    console.error(err);
+                    res.status(500).json({
+                        msg: "Error while trying to post to slack.",
+                        error: err
+                    });
+                });
         })
         .catch((err) => {
             console.error(err);
@@ -98,12 +114,26 @@ router.put("/question/:id", (req, res) => {
                             }
                         }
                     )
-                    .then((response) => {
-                        console.log(response);
-                        res.status(200).json({
-                            msg: "Successfully wrote to database!",
-                            data: response
-                        });
+                    .then((updResponse) => {
+                        console.log(updResponse);
+                        let text = "New answer to the question asked by " + response.asker + "\n"
+                        text += "Answer: " + req.body.answer
+                        web.chat
+                            .postMessage({ channel: "#04-ask-the-class", text: text })
+                            .then((resp) => {
+                                // `res` contains information about the posted message
+                                console.log('Message sent: ', resp.ts);
+                                res.status(200).json({
+                                    msg: "Successfully wrote to database!",
+                                    data: updResponse
+                                });
+                            }).catch((err) => {
+                                console.error(err);
+                                res.status(500).json({
+                                    msg: "Error while trying to post to slack.",
+                                    error: err
+                                });
+                            });
                     })
                     .catch((err) => {
                         console.error(err);
