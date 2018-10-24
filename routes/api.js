@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const { WebClient } = require('@slack/client');
 const web = new WebClient(process.env.SLACK_ACCESS_TOKEN);
+const slackChannel = process.env.SLACK_CHANNEL
 /*==============================SEQUELIZE ROUTES================================*/
 //create
 router.post("/question", (req, res) => {
@@ -18,7 +19,7 @@ router.post("/question", (req, res) => {
             text += "Asker: " + response.dataValues.asker + "\n";
             text += "Question: " + response.dataValues.question;
             web.chat
-                .postMessage({ channel: "#04-ask-the-class", text: text })
+                .postMessage({ channel: slackChannel, text: text })
                 .then((resp) => {
                     // `res` contains information about the posted message
                     console.log('Message sent: ', resp.ts);
@@ -119,7 +120,7 @@ router.put("/question/:id", (req, res) => {
                         let text = "New answer to the question asked by " + response.asker + "\n"
                         text += "Answer: " + req.body.answer
                         web.chat
-                            .postMessage({ channel: "#04-ask-the-class", text: text })
+                            .postMessage({ channel: slackChannel, text: text })
                             .then((resp) => {
                                 // `res` contains information about the posted message
                                 console.log('Message sent: ', resp.ts);
