@@ -17,12 +17,33 @@ $(document).ready(() => {
             $("#myAlert").show('slow');
         });
     }
+
     $(document).on("click", ".qView", (e) => {
         e.preventDefault();
         //can not use this since in this case this refers to document. however we can access the target element with parameter e
         const questionID = $(e.target).attr("data-id");
         localStorage.setItem("questionID", questionID);
         window.location.replace("/question.html");
+    });
+
+    $(document).on("click", ".qAnswer", (e) => {
+        e.preventDefault();
+        //can not use this since in this case this refers to document. however we can access the target element with parameter e
+        const questionID = $(e.target).attr("data-id");
+        $.ajax({
+            method: "GET",
+            url: "/api/question/" + questionID
+        }).then((response) => {
+            console.log(response);
+            $("#questionBox").text(response.data.question);
+            $("#submitBtnAnswer").attr("data-id", questionID);
+            $("#myModal").modal('show');
+        }).catch((err) => {
+            console.log("=============ERROR================");
+            console.log(err);
+            $("#errorMsg").text(err.responseJSON.msg);
+            $("#myAlert").show('slow');
+        })
     });
 
     $(document).on("click", ".qDelete", (e) => {
@@ -43,6 +64,35 @@ $(document).ready(() => {
                 $("#myAlert").show('slow');
             });
         }
+    });
+
+    $("#submitBtnAnswer").on("click", (e) => {
+        e.preventDefault();
+        console.log("firing");
+        if ($("#answerBox").val() === "") {
+            $("#errorMsg").text("You did not give an answer!!!");
+            $("#myAlert").show('slow');
+        } else {
+            const questionID = $(e.target).attr("data-id");
+            $.ajax({
+                method: "PUT",
+                url: "/api/question/" + questionID,
+                data: {
+                    answered: true,
+                    answer: $("#answerBox").val()
+                }
+            }).then((response) => {
+                console.log(response);
+                $("#myModal").modal('hide');
+                $(".questionID" + questionID).detach().appendTo("#answered");
+            }).catch((err) => {
+                console.log("=============ERROR================");
+                console.log(err);
+                $("#errorMsg").text(err.responseJSON.msg);
+                $("#myAlert").show('slow');
+            });
+        }
+
     });
 
     $("#submitBtn").on("click", (e) => {
@@ -77,6 +127,7 @@ $(document).ready(() => {
     $("#myAlertClose").on("click", () => {
         $("#myAlert").hide("slow");
     });
+
     const buildTableRow = (item) => {
         //new table row
         const newTR = $("<tr>");
@@ -89,8 +140,12 @@ $(document).ready(() => {
         newTR.append(askerTD);
         //question table data
         const questionTD = $("<td>");
-        questionTD.text((item.question.length > 25) ? item.question.substring(0, 23) + "..." : item.question);
+        questionTD.text((item.question.length > 25) ? item.question.substring(0, 22) + "..." : item.question);
         newTR.append(questionTD);
+        //answer table data
+        const answerTD = $("<td>");
+        answerTD.text((item.answer) ? (item.answer.length > 25) ? item.answer.substring(0, 22) + "..." : item.answer : "N/A");
+        newTR.append(answerTD);
         //controller table data
         const ctrlTD = $("<td>");
         const newDiv = $("<div>");

@@ -82,7 +82,8 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 15%" scope="col">Asker</th>
-                                        <th style="width: 75%" scope="col">Question</th>
+                                        <th style="width: 37.5%" scope="col">Question</th>
+                                        <th style="width: 37.5%" scope="col">Answer</th>
                                         <th style="width: 10%" scope="col">
                                             <!--This column is for controls-->
                                         </th>
@@ -105,7 +106,8 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 15%" scope="col">Asker</th>
-                                        <th style="width: 75%" scope="col">Question</th>
+                                        <th style="width: 37.5%" scope="col">Question</th>
+                                        <th style="width: 37.5%" scope="col">Answer</th>
                                         <th style="width: 10%" scope="col">
                                             <!--This column is for controls-->
                                         </th>
@@ -125,6 +127,27 @@
             <div id="myAlert" class="alert alert-danger collapse">
                 <a id="myAlertClose" href="#" class="close">&times;</a>
                 <strong>Error: </strong><span id="errorMsg"></span>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-light">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Write Answer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Question: <span id="questionBox"></span></p>
+                    <textarea style="width: 100%;" id="answerBox" rows="3" placeholder="Enter your answer here."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="submitBtnAnswer" data-id="" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
