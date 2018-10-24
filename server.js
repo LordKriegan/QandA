@@ -30,7 +30,7 @@ app.get("*", function (req, res) {
     res.redirect("/404");
 });
 
-db.sequelize.sync({ force: isDev }).then(function () {
+db.sequelize.sync(/*{ force: isDev }*/).then(function () {
     app.listen(PORT, function () {
         console.log("App listening on PORT " + PORT);
     })

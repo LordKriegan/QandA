@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.18.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "mysql2": "^1.6.1",
@@ -7,7 +8,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "devstart": "set NODE_ENV=development && nodemon ./server.js"
+    "devStartSeed": "set NODE_ENV=development && sequelize db:seed:all && nodemon ./server.js",
+    "devStart": "set NODE_ENV=development && nodemon ./server.js"
   },
   "name": "qanda",
   "description": "allow students to submit questions anonymously to be answered in class or office hours publicly",

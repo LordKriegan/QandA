@@ -1,6 +1,7 @@
 {
   "development": {
-    "use_env_variable": "LOCALDB"
+    "use_env_variable": "LOCALDB",
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",

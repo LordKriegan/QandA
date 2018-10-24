@@ -2,9 +2,7 @@ body {
 	color: #777777;
 	background-image: url("../images/background.png");
 }
-.hiddenRow {
-    padding-top: 10px;
-}
+
 .textBox {
     font-size: 25px;
 }

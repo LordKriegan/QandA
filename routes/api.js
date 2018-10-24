@@ -1,6 +1,7 @@
 const db = require("../models");
 const express = require("express");
 const router = express.Router();
+
 /*==============================SEQUELIZE ROUTES================================*/
 //create
 router.post("/question", (req, res) => {
@@ -31,12 +32,18 @@ router.get("/questions", (req, res) => {
         .findAll()
         .then((response) => {
             console.log(response);
-            res.status(200).json({
-                msg: "Successfully read database!",
-                data: response
-            });
-        })
-        .catch((err) => {
+            if (response.length > 0) {
+                res.status(200).json({
+                    msg: "Successfully read database!",
+                    data: response
+                });
+            } else {
+                res.status(500).json({
+                    msg: "Error while trying to read database!",
+                    error: err
+                });
+            }
+        }).catch((err) => {
             console.error(err);
             res.status(500).json({
                 msg: "Error while trying to read database!",
@@ -159,12 +166,12 @@ router.delete("/question/:id", (req, res) => {
 /*===========================END OF SEQUELIZE ROUTES=============================*/
 /*=================================AUTH ROUTES===================================*/
 router.post("/auth/login", (req, res) => {
-    const {ADMIN, PASSWORD} = process.env;
+    const { ADMIN, PASSWORD } = process.env;
     if ((req.body.ADMIN === ADMIN) && (req.body.PASSWORD === PASSWORD)) {
         res.status(200).json({
             msg: "Successfully logged in!",
             token: getToken()
-        }); 
+        });
     } else {
         res.status(403).json({
             msg: "Wrong username and/or password!"
