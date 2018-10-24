@@ -1,7 +1,7 @@
 const db = require("../models");
 const express = require("express");
 const router = express.Router();
-
+/*==============================SEQUELIZE ROUTES================================*/
 //create
 router.post("/question", (req, res) => {
     const newQuestion = {
@@ -156,5 +156,48 @@ router.delete("/question/:id", (req, res) => {
             });
         });
 });
+/*===========================END OF SEQUELIZE ROUTES=============================*/
+/*=================================AUTH ROUTES===================================*/
+router.post("/auth/login", (req, res) => {
+    const {ADMIN, PASSWORD} = process.env;
+    if ((req.body.ADMIN === ADMIN) && (req.body.PASSWORD === PASSWORD)) {
+        res.status(200).json({
+            msg: "Successfully logged in!",
+            token: getToken()
+        }); 
+    } else {
+        res.status(403).json({
+            msg: "Wrong username and/or password!"
+        });
+    }
+});
 
+router.post("/auth/checktoken", (req, res) => {
+    if (validateToken(req.body.token)) {
+        res.status(200).json({
+            msg: "Valid token!"
+        });
+    } else {
+        res.status(403).json({
+            msg: "Invalid or malformed token!"
+        });
+    }
+});
+/*==============================END OF AUTH ROUTES===============================*/
+/*===============================HELPER FUNCTIONS================================*/
+const getToken = () => {
+    const date = makeDateStr();
+    return (((date * 3584373495725) / 2342) + 242).toString();
+    //yes I know this isn't that secure. its not like this app is holding any private data :P
+}
+
+const validateToken = (token) => {
+    return (token === getToken());
+}
+
+const makeDateStr = () => {
+    const today = new Date();
+    return parseInt(today.getUTCFullYear().toString() + today.getUTCMonth().toString() + today.getUTCDate().toString());
+}
+/*===========================END OF HELPER FUNCTIONS=============================*/
 module.exports = router;

@@ -8,6 +8,9 @@ body {
 .textBox {
     font-size: 25px;
 }
+.askerName {
+    font-size: 18px;
+}
 .padMe {
     padding-top: 25px;
 }

@@ -7,7 +7,7 @@ $(document).ready(() => {
             localStorage.setItem("questionID", questionID)
             console.log(response);
             $(".hiddenRow").show();
-            $("#questionBox").text(response.data.question);
+            $("#questionBox").html("<blockquote>" + response.data.question + "</blockquote><p class='askerName'>-" + response.data.asker + "-</p>");
             $("#answerBox").text(response.data.answer || "This question has not been answered");
         }).catch((err) => {
             console.error(err);
